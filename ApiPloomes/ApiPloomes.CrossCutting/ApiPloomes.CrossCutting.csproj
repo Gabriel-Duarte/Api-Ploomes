@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApiPloomes.Application\ApiPloomes.Application.csproj" />
+    <ProjectReference Include="..\ApiPloomes.Domain\ApiPloomes.Domain.csproj" />
+    <ProjectReference Include="..\ApiPloomes.Infrastructure\ApiPloomes.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
