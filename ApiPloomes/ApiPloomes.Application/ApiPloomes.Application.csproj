@@ -7,7 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Handlers\GetProdutosHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ApiPloomes.Domain\ApiPloomes.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Requests\" />
+    <Folder Include="Handlers\" />
   </ItemGroup>
 
 </Project>
