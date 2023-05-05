@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ApiPloomes.Domain.Interfaces
 {
-	public interface IProdutoRepository
+	public interface IProdutoRepository: IRepository<Produto>
 	{
-		Task<IEnumerable<Produto>> GetProdutosAsync();
+		IEnumerable<Produto> GetProdutosPorPreco();
 
 	}
 }

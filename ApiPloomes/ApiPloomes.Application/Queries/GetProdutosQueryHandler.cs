@@ -16,10 +16,10 @@ namespace ApiPloomes.Application.Queries
 		public class GetProdutosQuery : IRequestHandler<GetProdutosQueryHandler,
 		   IEnumerable<Produto>>
 		{
-			private readonly IProdutoRepository _context;
+			private readonly IUnitOfWork _context;
 			private readonly IMediator _mediator;
 
-			public GetProdutosQuery(IProdutoRepository context, IMediator mediator)
+			public GetProdutosQuery(IUnitOfWork context, IMediator mediator)
 			{
 				_context = context;
 				_mediator = mediator;
@@ -28,7 +28,7 @@ namespace ApiPloomes.Application.Queries
 			public async Task<IEnumerable<Produto>> Handle(GetProdutosQueryHandler query,
 				CancellationToken cancellationToken)
 			{
-				var produtos = await _context.GetProdutosAsync();
+				var produtos =  _context.ProdutoRepository.Get();
 				if (produtos == null)
 				{
 					await _mediator.Publish(new ErrorNotification

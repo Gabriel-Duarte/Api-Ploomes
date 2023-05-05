@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 
 namespace ApiPloomes.Infrastructure.Repositories
 {
-	public class ProdutoRepository : IProdutoRepository
+	public class ProdutoRepository : Repository<Produto>, IProdutoRepository
 	{
-		private AppDbContext _productContext;
-		public ProdutoRepository(AppDbContext context)
+		
+		
+		public ProdutoRepository(AppDbContext context) :base(context) 
 		{
-			_productContext = context;
 		}
+		
 
-		public async Task<IEnumerable<Produto>> GetProdutosAsync()
+		public  IEnumerable<Produto> GetProdutosPorPreco()
 		{
-			return await _productContext.Produtos.ToListAsync();
+			return Get().OrderBy(x=> x.Preco).ToList();
 		}
 
 	}
