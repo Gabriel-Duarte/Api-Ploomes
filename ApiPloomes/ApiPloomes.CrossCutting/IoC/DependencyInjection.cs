@@ -23,7 +23,9 @@ namespace ApiPloomes.CrossCutting.IoC
 			services.AddDbContext<AppDbContext>(options =>
 						 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"
 						), b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
+
 			services.AddScoped<IProdutoRepository, ProdutoRepository>();
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddMediatRApi();
 			return services;
 		}
