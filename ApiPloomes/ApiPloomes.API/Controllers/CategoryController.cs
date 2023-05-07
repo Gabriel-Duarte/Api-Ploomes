@@ -59,5 +59,25 @@ namespace ApiPloomes.API.Controllers
 					   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
+
+		[HttpGet("{id:int}")]
+		public async Task<ActionResult<GetCategoriesResponse>> Get(int id)
+		{
+			try
+			{
+				var request = new GetCategoryByIdRequest { Id = id };
+				var response = await _mediator.Send(request);
+				if (response == null)
+				{
+					return NotFound($"Categoria com id= {id} não encontrada...");
+				}
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
+			}
+		}
 	}
 }
