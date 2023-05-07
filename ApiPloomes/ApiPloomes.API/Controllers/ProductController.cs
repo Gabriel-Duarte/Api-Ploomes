@@ -1,5 +1,8 @@
 ﻿using ApiPloomes.Application.Commands.Requests;
+using ApiPloomes.Application.Commands.Requests.ProductRequests;
 using ApiPloomes.Application.Commands.Responses;
+using ApiPloomes.Application.Commands.Responses.ProductsResponses;
+using ApiPloomes.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,11 +26,16 @@ namespace ApiPloomes.API.Controllers
 			{
 				var request = new GetProductsRequest();
 				var response = await _mediator.Send(request);
+				if (response == null)
+				{
+					return NotFound("A lista de produtos não pode ser encontrada");
+				}
 				return Ok(response);
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return StatusCode(StatusCodes.Status500InternalServerError,
+					   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
 
@@ -38,11 +46,16 @@ namespace ApiPloomes.API.Controllers
 			{
 				var request = new GetProductsByPriceRequest();
 				var response = await _mediator.Send(request);
+				if (response == null)
+				{
+					return NotFound("A lista de produtos não pode ser encontrada");
+				}
 				return Ok(response);
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
 
@@ -53,11 +66,16 @@ namespace ApiPloomes.API.Controllers
 			{
 				var request = new GetProductByIdRequest { Id = id };
 				var response = await _mediator.Send(request);
+				if (response == null)
+				{
+					return NotFound($"Produto com id= {id} não encontrado...");
+				}
 				return Ok(response);
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
 
@@ -66,12 +84,16 @@ namespace ApiPloomes.API.Controllers
 		{
 			try
 			{
+				if (request is null)
+					return BadRequest("Dados inválidos");
+
 				var response = await _mediator.Send(request);
 				return Ok(response);
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
 
@@ -81,11 +103,16 @@ namespace ApiPloomes.API.Controllers
 			try
 			{
 				var response = await _mediator.Send(request);
+				if (response == null)
+				{
+					return NotFound($"Produto com id= {request.Id} não encontrada...");
+				}
 				return Ok(response);
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
 
@@ -94,12 +121,17 @@ namespace ApiPloomes.API.Controllers
 		{
 			try
 			{
-				var result = await _mediator.Send(new DeleteProductRequest { Id = id });
-				return Ok(result);
+				var response = await _mediator.Send(new DeleteProductRequest { Id = id });
+				if (response == null)
+				{
+					return NotFound($"Produto com id= {id} não encontrada...");
+				}
+				return Ok(response);
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
 	}
