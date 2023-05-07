@@ -59,5 +59,19 @@ namespace ApiPloomes.API.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
+		[HttpPut]
+		public async Task<ActionResult<UpdateProductResponse>> Update([FromBody] UpdateProductRequest request)
+		{
+			try
+			{
+				var response = await _mediator.Send(request);
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 	}
 }
