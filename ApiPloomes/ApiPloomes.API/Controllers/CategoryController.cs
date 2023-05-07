@@ -40,5 +40,24 @@ namespace ApiPloomes.API.Controllers
 			}
 		}
 
+		[HttpGet("GetCategoriesProducts")]
+		public async Task<ActionResult<IEnumerable<GetCategoriesProductsResponse>>> GetCategoriesProducts()
+		{
+			try
+			{
+				var request = new GetCategoriesProductsRequest();
+				var response = await _mediator.Send(request);
+				if (response == null)
+				{
+					return NotFound("A lista de categorias não pode ser encontrada");
+				}
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError,
+					   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
+			}
+		}
 	}
 }
