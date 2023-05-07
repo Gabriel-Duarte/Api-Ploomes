@@ -29,7 +29,21 @@ namespace ApiPloomes.API.Controllers
 			{
 				return BadRequest(ex.Message);
 			}
+		}
 
+		[HttpGet("{id:int}")]
+		public async Task<ActionResult<GetProductResponse>> Get(int id)
+		{
+			try
+			{
+				var request = new GetProductByIdRequest { Id = id };
+				var response = await _mediator.Send(request);
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 	}
 }
