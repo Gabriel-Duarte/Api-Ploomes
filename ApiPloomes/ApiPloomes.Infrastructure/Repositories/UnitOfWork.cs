@@ -1,28 +1,23 @@
 ﻿using ApiPloomes.Domain.Interfaces;
 using ApiPloomes.Infrastructure.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiPloomes.Infrastructure.Repositories
 {
 	public class UnitOfWork : IUnitOfWork
 	{
-		private ProdutoRepository _produtoRepo;
+		private ProductRepository _productRepository;
 		public AppDbContext _context;
-		
+
 		public UnitOfWork(AppDbContext contexto)
 		{
 			_context = contexto;
 		}
 
-		public IProdutoRepository ProdutoRepository
+		public IProductRepository ProductRepository
 		{
 			get
 			{
-				return _produtoRepo = _produtoRepo ?? new ProdutoRepository(_context);
+				return _productRepository = _productRepository ?? new ProductRepository(_context);
 			}
 		}
 

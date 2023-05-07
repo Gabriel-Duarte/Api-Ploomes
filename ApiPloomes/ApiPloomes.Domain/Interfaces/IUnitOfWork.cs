@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApiPloomes.Domain.Interfaces
+﻿namespace ApiPloomes.Domain.Interfaces
 {
 	public interface IUnitOfWork
 	{
-		IProdutoRepository ProdutoRepository { get; }
-
+		IProductRepository ProductRepository { get; }
 		void Commit();
 	}
 }

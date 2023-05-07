@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApiPloomes.Application.Notifications
+﻿namespace ApiPloomes.Application.Notifications
 {
 	public enum ActionNotification
 	{

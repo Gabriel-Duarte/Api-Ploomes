@@ -1,16 +1,12 @@
-﻿using ApiPloomes.CrossCutting.Extensions;
+﻿using ApiPloomes.Application.Mapping;
+using ApiPloomes.CrossCutting.Extensions;
 using ApiPloomes.Domain.Interfaces;
 using ApiPloomes.Infrastructure.Context;
 using ApiPloomes.Infrastructure.Repositories;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiPloomes.CrossCutting.IoC
 {
@@ -24,8 +20,16 @@ namespace ApiPloomes.CrossCutting.IoC
 						 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"
 						), b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
-			services.AddScoped<IProdutoRepository, ProdutoRepository>();
+			services.AddScoped<IProductRepository, ProductRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+			var mappingConfig = new MapperConfiguration(mc =>
+			{
+				mc.AddProfile(new MappingProfile());
+			});
+			IMapper mapper = mappingConfig.CreateMapper();
+
+			services.AddSingleton(mapper);
 			services.AddMediatRApi();
 			return services;
 		}

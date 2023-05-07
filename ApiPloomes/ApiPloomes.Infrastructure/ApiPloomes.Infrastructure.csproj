@@ -22,4 +22,8 @@
     <ProjectReference Include="..\ApiPloomes.Domain\ApiPloomes.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

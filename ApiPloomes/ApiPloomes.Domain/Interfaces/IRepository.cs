@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 
-
 namespace ApiPloomes.Domain.Interfaces
 {
 	public interface IRepository<T>
