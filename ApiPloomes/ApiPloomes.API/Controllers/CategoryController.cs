@@ -1,9 +1,5 @@
-﻿using ApiPloomes.Application.Commands.Requests;
-using ApiPloomes.Application.Commands.Requests.CategoriesRequests;
-using ApiPloomes.Application.Commands.Requests.ProductRequests;
-using ApiPloomes.Application.Commands.Responses;
+﻿using ApiPloomes.Application.Commands.Requests.CategoriesRequests;
 using ApiPloomes.Application.Commands.Responses.CategoriesResponses;
-using ApiPloomes.Application.Commands.Responses.ProductsResponses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -107,6 +103,25 @@ namespace ApiPloomes.API.Controllers
 				if (response == null)
 				{
 					return NotFound($"Categoria com id= {request.Id} não encontrada...");
+				}
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
+			}
+		}
+
+		[HttpDelete("{id:int}")]
+		public async Task<ActionResult<DeleteCategoryResponse>> Delete(int id)
+		{
+			try
+			{
+				var response = await _mediator.Send(new DeleteCategoryRequest { Id = id });
+				if (response == null)
+				{
+					return NotFound($"Categoria com id= {id} não encontrada...");
 				}
 				return Ok(response);
 			}
