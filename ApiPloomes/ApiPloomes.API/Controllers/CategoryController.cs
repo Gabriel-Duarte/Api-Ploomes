@@ -79,5 +79,23 @@ namespace ApiPloomes.API.Controllers
 				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
+
+		[HttpPost]
+		public async Task<ActionResult<CreateCategoryResponse>> Create([FromBody] CreateCategoryRequest request)
+		{
+			try
+			{
+				if (request is null)
+					return BadRequest("Dados inválidos");
+
+				var response = await _mediator.Send(request);
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
+			}
+		}
 	}
 }
