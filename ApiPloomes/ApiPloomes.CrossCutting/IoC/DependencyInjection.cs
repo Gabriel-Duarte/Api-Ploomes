@@ -20,6 +20,7 @@ namespace ApiPloomes.CrossCutting.IoC
 						 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"
 						), b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
+			services.AddScoped<ICategoryRepository, CategoryRepository>();
 			services.AddScoped<IProductRepository, ProductRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
