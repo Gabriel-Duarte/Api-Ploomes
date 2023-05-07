@@ -97,5 +97,24 @@ namespace ApiPloomes.API.Controllers
 				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
 			}
 		}
+
+		[HttpPut]
+		public async Task<ActionResult<UpdateCategoryResponse>> Update([FromBody] UpdateCategoryRequest request)
+		{
+			try
+			{
+				var response = await _mediator.Send(request);
+				if (response == null)
+				{
+					return NotFound($"Categoria com id= {request.Id} não encontrada...");
+				}
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError,
+				   $"Ocorreu um problema ao tratar a sua solicitação. {ex.Message}");
+			}
+		}
 	}
 }
