@@ -73,5 +73,19 @@ namespace ApiPloomes.API.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
+		[HttpDelete("{id:int}")]
+		public async Task<ActionResult<DeleteProductResponse>> Delete(int id)
+		{
+			try
+			{
+				var result = await _mediator.Send(new DeleteProductRequest { Id = id });
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 	}
 }
