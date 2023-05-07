@@ -45,5 +45,19 @@ namespace ApiPloomes.API.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
+		[HttpPost]
+		public async Task<ActionResult<CreateProductResponse>> Create([FromBody] CreateProductRequest request)
+		{
+			try
+			{
+				var response = await _mediator.Send(request);
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 	}
 }
