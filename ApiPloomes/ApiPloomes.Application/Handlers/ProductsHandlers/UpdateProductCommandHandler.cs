@@ -1,4 +1,4 @@
-﻿using ApiPloomes.Application.Commands.Requests;
+﻿using ApiPloomes.Application.Commands.Requests.ProductRequests;
 using ApiPloomes.Application.Commands.Responses;
 using ApiPloomes.Application.Notifications;
 using ApiPloomes.Domain.Entities;
@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ApiPloomes.Application.Handlers
 {
-	public class UpdateProductCommandHandler : IRequestHandler<UpdateProductRequest, UpdateProductResponse>
+    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductRequest, UpdateProductResponse>
 	{
 		private readonly IUnitOfWork _context;
 		private readonly IMediator _mediator;

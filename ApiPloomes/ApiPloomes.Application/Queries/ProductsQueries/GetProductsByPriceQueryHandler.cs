@@ -1,5 +1,5 @@
-﻿using ApiPloomes.Application.Commands.Requests;
-using ApiPloomes.Application.Commands.Responses;
+﻿using ApiPloomes.Application.Commands.Requests.ProductRequests;
+using ApiPloomes.Application.Commands.Responses.ProductsResponses;
 using ApiPloomes.Application.Notifications;
 using ApiPloomes.Domain.Interfaces;
 using AutoMapper;
@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ApiPloomes.Application.Queries
 {
-	public class GetProductsByPriceQueryHandler : IRequestHandler<GetProductsByPriceRequest, IEnumerable<GetProductResponse>>
+    public class GetProductsByPriceQueryHandler : IRequestHandler<GetProductsByPriceRequest, IEnumerable<GetProductResponse>>
 	{
 		private readonly IUnitOfWork _context;
 		private readonly IMediator _mediator;

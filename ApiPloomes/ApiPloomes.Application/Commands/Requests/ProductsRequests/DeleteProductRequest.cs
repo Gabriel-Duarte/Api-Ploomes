@@ -3,7 +3,8 @@ using MediatR;
 
 namespace ApiPloomes.Application.Commands.Requests
 {
-	public class GetProductsRequest : IRequest<IEnumerable<GetProductResponse>>
+    public class DeleteProductRequest : IRequest<DeleteProductResponse>
 	{
+		public int Id { get; set; }
 	}
 }

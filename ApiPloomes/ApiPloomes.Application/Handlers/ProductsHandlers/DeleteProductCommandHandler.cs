@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ApiPloomes.Application.Handlers
 {
-	public class DeleteProductCommandHandler : IRequestHandler<DeleteProductRequest, DeleteProductResponse>
+    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductRequest, DeleteProductResponse>
 	{
 		private readonly IUnitOfWork _context;
 		private readonly IMediator _mediator;
