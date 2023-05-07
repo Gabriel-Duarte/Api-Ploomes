@@ -5,6 +5,7 @@ namespace ApiPloomes.Infrastructure.Repositories
 {
 	public class UnitOfWork : IUnitOfWork
 	{
+		private CategoryRepository _categoryRepository;
 		private ProductRepository _productRepository;
 		public AppDbContext _context;
 
@@ -20,7 +21,13 @@ namespace ApiPloomes.Infrastructure.Repositories
 				return _productRepository = _productRepository ?? new ProductRepository(_context);
 			}
 		}
-
+		public ICategoryRepository CategoryRepository
+		{
+			get
+			{
+				return _categoryRepository = _categoryRepository ?? new CategoryRepository(_context);
+			}
+		}
 		public void Commit()
 		{
 			_context.SaveChanges();
