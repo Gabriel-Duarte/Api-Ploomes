@@ -31,6 +31,21 @@ namespace ApiPloomes.API.Controllers
 			}
 		}
 
+		[HttpGet("GetProductsByPrice")]
+		public async Task<ActionResult<IEnumerable<GetProductResponse>>> GetProductsByPrice()
+		{
+			try
+			{
+				var request = new GetProductsByPriceRequest();
+				var response = await _mediator.Send(request);
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[HttpGet("{id:int}")]
 		public async Task<ActionResult<GetProductResponse>> Get(int id)
 		{
