@@ -13,6 +13,13 @@ namespace ApiPloomes.Application.Events
 					$" \n Estoque:{notification.Stock} \n CategoriaId:{notification.CategoryId} \n Ação{notification.Action.ToString().ToLower()} successfuly");
 			});
 		}
+		public Task Handle(CategoriesActionNotification notification, CancellationToken cancellationToken)
+		{
+			return Task.Run(() =>
+			{
+				Console.WriteLine($"Nome: {notification.Name} \n Imagem Url:{notification.ImageUrl} successfuly");
+			});
+		}
 
 		public Task Handle(ErrorNotification notification, CancellationToken cancellationToken)
 		{
