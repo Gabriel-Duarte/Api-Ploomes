@@ -1,13 +1,14 @@
 ﻿using ApiPloomes.Application.Commands.Requests.ProductRequests;
 using ApiPloomes.Application.Commands.Responses.ProductsResponses;
 using ApiPloomes.Application.Notifications;
+using ApiPloomes.Domain.Entities;
 using ApiPloomes.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
 namespace ApiPloomes.Application.Queries
 {
-    public class GetProductsQueryHandler : IRequestHandler<GetProductsRequest, IEnumerable<GetProductResponse>>
+    public class GetProductsQueryHandler : IRequestHandler<GetProductsRequest, GetProductResponse>
 	{
 		private readonly IUnitOfWork _context;
 		private readonly IMediator _mediator;
@@ -20,10 +21,10 @@ namespace ApiPloomes.Application.Queries
 			_mediator = mediator;
 		}
 
-		public async Task<IEnumerable<GetProductResponse>> Handle(GetProductsRequest request,
+		public async Task<GetProductResponse> Handle(GetProductsRequest request,
 			CancellationToken cancellationToken)
 		{
-			var products = _context.ProductRepository.Get();
+			var products = _context.ProductRepository.GetPtoduct(request);
 			if (products == null)
 			{
 				await _mediator.Publish(new ErrorNotification
@@ -34,7 +35,16 @@ namespace ApiPloomes.Application.Queries
 
 				return null;
 			}
-			var productsresponse = _mapper.Map<List<GetProductResponse>>(products);
+			GetProductResponse productsresponse = new GetProductResponse
+			{
+				TotalCount=products.TotalCount,
+				PageSize=products.PageSize,
+				CurrentPage =products.CurrentPage,
+				TotalPages = products.TotalPages,
+				HasNext=products.HasNext,
+				HasPrevious=products.HasPrevious
+			};
+			productsresponse.products = _mapper.Map<List<GetProductByIdResponse>>(products);
 			return productsresponse;
 		}
 	}

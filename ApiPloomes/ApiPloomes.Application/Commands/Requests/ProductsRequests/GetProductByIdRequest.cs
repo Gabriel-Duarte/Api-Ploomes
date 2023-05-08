@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ApiPloomes.Application.Commands.Requests.ProductRequests
 {
-    public class GetProductByIdRequest : IRequest<GetProductResponse>
+    public class GetProductByIdRequest : IRequest<GetProductByIdResponse>
     {
         public int Id { get; set; }
     }

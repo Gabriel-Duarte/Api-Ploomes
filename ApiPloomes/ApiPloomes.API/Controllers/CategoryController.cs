@@ -2,6 +2,7 @@
 using ApiPloomes.Application.Commands.Responses.CategoriesResponses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ApiPloomes.API.Controllers
 {
@@ -17,17 +18,26 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<GetCategoriesResponse>>> Get()
+		public async Task<ActionResult<IEnumerable<GetCategoryByIdResponse>>> Get([FromQuery] GetCategoriesRequest request)
 		{
 			try
 			{
-				var request = new GetCategoriesRequest();
 				var response = await _mediator.Send(request);
 				if (response == null)
 				{
 					return NotFound("A lista de categorias não pode ser encontrada");
 				}
-				return Ok(response);
+				var metadata = new
+				{
+					response.TotalCount,
+					response.PageSize,
+					response.CurrentPage,
+					response.TotalPages,
+					response.HasNext,
+					response.HasPrevious
+				};
+				Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+				return Ok(response.categories);
 			}
 			catch (Exception ex)
 			{
@@ -57,7 +67,7 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet("{id:int}")]
-		public async Task<ActionResult<GetCategoriesResponse>> Get(int id)
+		public async Task<ActionResult<GetCategoryByIdResponse>> Get(int id)
 		{
 			try
 			{

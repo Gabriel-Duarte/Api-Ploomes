@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ApiPloomes.Application.Queries
 {
-    public class GetProductsByPriceQueryHandler : IRequestHandler<GetProductsByPriceRequest, IEnumerable<GetProductResponse>>
+    public class GetProductsByPriceQueryHandler : IRequestHandler<GetProductsByPriceRequest, IEnumerable<GetProductByIdResponse>>
 	{
 		private readonly IUnitOfWork _context;
 		private readonly IMediator _mediator;
@@ -20,7 +20,7 @@ namespace ApiPloomes.Application.Queries
 			_mediator = mediator;
 		}
 
-		public async Task<IEnumerable<GetProductResponse>> Handle(GetProductsByPriceRequest request,
+		public async Task<IEnumerable<GetProductByIdResponse>> Handle(GetProductsByPriceRequest request,
 			CancellationToken cancellationToken)
 		{
 			var products = _context.ProductRepository.GetProductsByPrice();
@@ -34,7 +34,7 @@ namespace ApiPloomes.Application.Queries
 
 				return null;
 			}
-			var productsresponse = _mapper.Map<List<GetProductResponse>>(products);
+			var productsresponse = _mapper.Map<List<GetProductByIdResponse>>(products);
 			return productsresponse;
 		}
 	}

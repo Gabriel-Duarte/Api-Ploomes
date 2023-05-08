@@ -1,9 +1,10 @@
 ﻿using ApiPloomes.Application.Commands.Responses.ProductsResponses;
+using ApiPloomes.Domain.Pagination;
 using MediatR;
 
 namespace ApiPloomes.Application.Commands.Requests.ProductRequests
 {
-    public class GetProductsRequest : IRequest<IEnumerable<GetProductResponse>>
+    public class GetProductsRequest : QueryStringParameters, IRequest<GetProductResponse>
     {
     }
 }

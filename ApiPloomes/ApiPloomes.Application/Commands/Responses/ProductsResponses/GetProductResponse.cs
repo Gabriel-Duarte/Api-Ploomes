@@ -1,13 +1,11 @@
-﻿namespace ApiPloomes.Application.Commands.Responses.ProductsResponses
+﻿using ApiPloomes.Domain.Entities;
+using ApiPloomes.Domain.Pagination;
+
+namespace ApiPloomes.Application.Commands.Responses.ProductsResponses
 {
-    public class GetProductResponse
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public string ImageUrl { get; set; }
-        public int Stock { get; set; }
-        public int CategoryId { get; set; }
-    }
+    public class GetProductResponse: ResponseHeaders
+	{
+		public List<GetProductByIdResponse> products { get; set; }
+
+	}
 }

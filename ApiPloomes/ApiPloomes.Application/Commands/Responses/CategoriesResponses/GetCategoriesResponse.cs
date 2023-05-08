@@ -1,9 +1,10 @@
-﻿namespace ApiPloomes.Application.Commands.Responses.CategoriesResponses
+﻿using ApiPloomes.Application.Commands.Responses.ProductsResponses;
+using ApiPloomes.Domain.Pagination;
+
+namespace ApiPloomes.Application.Commands.Responses.CategoriesResponses
 {
-	public class GetCategoriesResponse
+	public class GetCategoriesResponse : ResponseHeaders
 	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public string ImageUrl { get; set; }
+		public List<GetCategoryByIdResponse> categories { get; set; }
 	}
 }

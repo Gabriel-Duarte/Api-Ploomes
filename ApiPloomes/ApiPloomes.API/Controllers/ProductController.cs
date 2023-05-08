@@ -3,8 +3,10 @@ using ApiPloomes.Application.Commands.Requests.ProductRequests;
 using ApiPloomes.Application.Commands.Responses;
 using ApiPloomes.Application.Commands.Responses.ProductsResponses;
 using ApiPloomes.Domain.Entities;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ApiPloomes.API.Controllers
 {
@@ -20,17 +22,27 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<GetProductResponse>>> Get()
+		public async Task<ActionResult<IEnumerable<GetProductByIdResponse>>> Get([FromQuery] GetProductsRequest request)
 		{
 			try
 			{
-				var request = new GetProductsRequest();
 				var response = await _mediator.Send(request);
 				if (response == null)
 				{
 					return NotFound("A lista de produtos não pode ser encontrada");
 				}
-				return Ok(response);
+				var metadata = new
+				{
+					response.TotalCount,
+					response.PageSize,
+					response.CurrentPage,
+					response.TotalPages,
+					response.HasNext,
+					response.HasPrevious
+				};
+				Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+			
+				return Ok(response.products);
 			}
 			catch (Exception ex)
 			{
@@ -40,7 +52,7 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet("GetProductsByPrice")]
-		public async Task<ActionResult<IEnumerable<GetProductResponse>>> GetProductsByPrice()
+		public async Task<ActionResult<IEnumerable<GetProductByIdResponse>>> GetProductsByPrice()
 		{
 			try
 			{
@@ -60,7 +72,7 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet("{id:int}")]
-		public async Task<ActionResult<GetProductResponse>> Get(int id)
+		public async Task<ActionResult<GetProductByIdResponse>> Get(int id)
 		{
 			try
 			{

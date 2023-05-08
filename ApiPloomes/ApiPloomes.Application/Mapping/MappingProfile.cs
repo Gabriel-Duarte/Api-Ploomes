@@ -22,6 +22,7 @@ namespace ApiPloomes.Application.Mapping
 			CreateMap<UpdateProductResponse, Product>().ReverseMap();
 			CreateMap<DeleteProductResponse, Product>().ReverseMap();
 			CreateMap<ProductActionNotification, Product>().ReverseMap();
+			CreateMap<GetProductByIdResponse, Product>().ReverseMap();
 
 			CreateMap<GetCategoriesResponse, Category>().ReverseMap();
 			CreateMap<CreateCategoryResponse, Category>().ReverseMap();
@@ -31,6 +32,7 @@ namespace ApiPloomes.Application.Mapping
 			CreateMap<DeleteCategoryResponse, Category>().ReverseMap();
 			CreateMap<CategoriesActionNotification, Category>().ReverseMap();
 			CreateMap<GetCategoriesProductsResponse, Category>().ReverseMap();
+			CreateMap<GetCategoryByIdResponse, Category>().ReverseMap();
 
 		}
 	}

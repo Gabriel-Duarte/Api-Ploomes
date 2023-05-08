@@ -5,6 +5,7 @@ using ApiPloomes.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
+
 namespace ApiPloomes.Application.Queries.CategoriesQueries
 {
 	public class GetCategoriesProductsQueryHandler : IRequestHandler<GetCategoriesProductsRequest, IEnumerable<GetCategoriesProductsResponse>>
