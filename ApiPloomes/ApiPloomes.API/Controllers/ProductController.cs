@@ -1,4 +1,5 @@
-﻿using ApiPloomes.Application.Commands.Requests;
+﻿using ApiPloomes.API.Communication;
+using ApiPloomes.Application.Commands.Requests;
 using ApiPloomes.Application.Commands.Requests.ProductRequests;
 using ApiPloomes.Application.Commands.Responses;
 using ApiPloomes.Application.Commands.Responses.ProductsResponses;
@@ -22,6 +23,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<IEnumerable<GetProductByIdResponse>>> Get([FromQuery] GetProductsRequest request)
 		{
 			try
@@ -52,6 +56,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet("GetProductsByPrice")]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<IEnumerable<GetProductByIdResponse>>> GetProductsByPrice()
 		{
 			try
@@ -72,6 +79,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet("{id:int}")]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<GetProductByIdResponse>> Get(int id)
 		{
 			try
@@ -92,6 +102,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpPost]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<CreateProductResponse>> Create([FromBody] CreateProductRequest request)
 		{
 			try
@@ -110,6 +123,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpPut]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<UpdateProductResponse>> Update([FromBody] UpdateProductRequest request)
 		{
 			try
@@ -129,6 +145,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpDelete("{id:int}")]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<DeleteProductResponse>> Delete(int id)
 		{
 			try

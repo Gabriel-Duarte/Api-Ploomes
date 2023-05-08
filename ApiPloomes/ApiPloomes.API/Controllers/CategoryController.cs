@@ -1,4 +1,5 @@
-﻿using ApiPloomes.Application.Commands.Requests.CategoriesRequests;
+﻿using ApiPloomes.API.Communication;
+using ApiPloomes.Application.Commands.Requests.CategoriesRequests;
 using ApiPloomes.Application.Commands.Responses.CategoriesResponses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<IEnumerable<GetCategoryByIdResponse>>> Get([FromQuery] GetCategoriesRequest request)
 		{
 			try
@@ -47,6 +51,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet("GetCategoriesProducts")]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<IEnumerable<GetCategoriesProductsResponse>>> GetCategoriesProducts()
 		{
 			try
@@ -67,6 +74,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpGet("{id:int}")]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<GetCategoryByIdResponse>> Get(int id)
 		{
 			try
@@ -87,6 +97,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpPost]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<CreateCategoryResponse>> Create([FromBody] CreateCategoryRequest request)
 		{
 			try
@@ -105,6 +118,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpPut]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<UpdateCategoryResponse>> Update([FromBody] UpdateCategoryRequest request)
 		{
 			try
@@ -124,6 +140,9 @@ namespace ApiPloomes.API.Controllers
 		}
 
 		[HttpDelete("{id:int}")]
+		[ProducesResponseType(typeof(ResponseSuccess), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(ResponseFailure), StatusCodes.Status500InternalServerError)]
 		public async Task<ActionResult<DeleteCategoryResponse>> Delete(int id)
 		{
 			try
