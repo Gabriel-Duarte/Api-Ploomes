@@ -9,9 +9,9 @@ namespace ApiPloomes.Infrastructure.Repositories
 		private ProductRepository _productRepository;
 		public AppDbContext _context;
 
-		public UnitOfWork(AppDbContext contexto)
+		public UnitOfWork(AppDbContext context)
 		{
-			_context = contexto;
+			_context = context;
 		}
 
 		public IProductRepository ProductRepository
