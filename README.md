@@ -31,7 +31,7 @@
     "categoryId": 1
   }
  ```
- ## Exemplo de json atualizar produto
+ ## Exemplo de json Atualizar produto
  ```json
   {
   	"id": 1,
